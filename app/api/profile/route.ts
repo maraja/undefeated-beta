@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server'
 import { sql } from '@/lib/db';
 import { verifyAuth } from '@/utils/auth';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
 
   if (!token) {
@@ -10,7 +11,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const decoded = await verifyAuth(token);
+    const decoded: any = await verifyAuth(token);
     const result = await sql`
       SELECT id, name, email, points 
       FROM players 
