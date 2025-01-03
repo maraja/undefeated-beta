@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id       String    @id @default(cuid())
+  name     String
+  email    String    @unique
+  password String
+  points   Int       @default(0)
+  sessions Session[] @relation("PlayerSessions")
+}
+
+model Session {
+  id       String   @id @default(cuid())
+  date     DateTime
+  time     String
+  location String
+  players  Player[] @relation("PlayerSessions")
+}
+
