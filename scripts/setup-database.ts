@@ -1,4 +1,7 @@
 import { sql } from '@vercel/postgres';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function setupDatabase() {
   try {
@@ -39,4 +42,3 @@ async function setupDatabase() {
 }
 
 setupDatabase();
-

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { sql } from '@/lib/db';
+import { createPlayer, getAllPlayers } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
@@ -12,12 +12,7 @@ export async function POST(request: Request) {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await sql`
-      INSERT INTO players (name, email, password, points)
-      VALUES (${name}, ${email}, ${hashedPassword}, 0)
-      RETURNING id, name, email
-    `;
-    const newPlayer = result.rows[0];
+    const newPlayer = await createPlayer(name, email, hashedPassword);
     return NextResponse.json({ player: newPlayer });
   } catch (error) {
     console.error('Error creating player:', error);
@@ -27,8 +22,8 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const result = await sql`SELECT id, name, email, points FROM players`;
-    return NextResponse.json({ players: result.rows });
+    const players = await getAllPlayers();
+    return NextResponse.json({ players });
   } catch (error) {
     console.error('Error fetching players:', error);
     return NextResponse.json({ error: 'An error occurred while fetching players' }, { status: 500 });

@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server'
-import { sql } from '@/lib/db';
+import { NextResponse, NextRequest } from 'next/server';
+import { getPlayerById } from '@/lib/db';
 import { verifyAuth } from '@/utils/auth';
 
 export async function GET(request: NextRequest) {
@@ -11,18 +10,13 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const decoded: any = await verifyAuth(token);
-    const result = await sql`
-      SELECT id, name, email, points 
-      FROM players 
-      WHERE id = ${decoded.id}
-    `;
+    const decoded = await verifyAuth(token);
+    const player = await getPlayerById(decoded.id as string);
 
-    if (result.rows.length === 0) {
+    if (!player) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }
 
-    const player = result.rows[0];
     return NextResponse.json({ player });
   } catch (error) {
     console.error('Error fetching profile:', error);

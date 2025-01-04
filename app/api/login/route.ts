@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { sql } from '@/lib/db';
+import { getPlayerByEmail } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -14,8 +14,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await sql`SELECT * FROM players WHERE email = ${email}`;
-    const player = result.rows[0];
+    const player = await getPlayerByEmail(email);
 
     if (!player) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
