@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +24,7 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        // You might want to store some user info in localStorage or context
-        localStorage.setItem('user', JSON.stringify(data.player));
+        login(data.player);
         router.push('/dashboard');
       } else {
         const data = await response.json();

@@ -1,40 +1,70 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+interface Session {
+  id: string;
+  date: string;
+  time: string;
+  location: string;
+  playerCount: number;
+  canEnroll: boolean;
+}
+
 export default function Sessions() {
-  const dummyData = [
-    { id: 1, date: "2023-06-15", time: "18:00", location: "Main Court" },
-    { id: 2, date: "2023-06-22", time: "18:00", location: "Main Court" },
-    { id: 3, date: "2023-06-29", time: "18:00", location: "Main Court" },
-  ];
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchSessions = async () => {
+      try {
+        const response = await fetch('/api/sessions');
+        if (!response.ok) {
+          throw new Error('Failed to fetch sessions');
+        }
+        const data = await response.json();
+        setSessions(data.sessions);
+      } catch (err) {
+        setError('Failed to load sessions. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSessions();
+  }, []);
+
+  if (isLoading) {
+    return <div className="text-center mt-10">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-10 text-red-500">{error}</div>;
+  }
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-3xl font-bold mb-6">Upcoming Sessions</h1>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {dummyData.map((session) => (
-              <tr key={session.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{session.date}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{session.time}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{session.location}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-                    Register
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid gap-6">
+        {sessions.map(session => (
+          <Link key={session.id} href={`/sessions/${session.id}`}>
+            <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow">
+              <p className="text-xl font-semibold">Date: {new Date(session.date).toLocaleDateString()}</p>
+              <p className="text-lg">Time: {session.time}</p>
+              <p className="text-lg">Location: {session.location}</p>
+              <p className="text-lg">Players Enrolled: {session.playerCount}</p>
+              {session.canEnroll ? (
+                <p className="text-green-600 mt-2">Open for enrollment</p>
+              ) : (
+                <p className="text-yellow-600 mt-2">Enrollment not yet open</p>
+              )}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
