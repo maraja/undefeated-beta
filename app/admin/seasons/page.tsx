@@ -69,8 +69,8 @@ export default function ManageSeasons() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-6">Manage Seasons</h1>
+    <div className="max-w-4xl mx-auto mt-10 bg-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-gray-200">Manage Seasons</h1>
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
@@ -78,47 +78,47 @@ export default function ManageSeasons() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Season Name"
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-gray-700 text-gray-200"
             required
           />
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-gray-700 text-gray-200"
             required
           />
           <input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-gray-700 text-gray-200"
             required
           />
         </div>
-        <button type="submit" className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+        <button type="submit" className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           {editingId ? 'Update Season' : 'Create Season'}
         </button>
       </form>
-      <h2 className="text-2xl font-bold mb-4">Existing Seasons</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-200">Existing Seasons</h2>
       <ul className="space-y-2">
         {seasons.map((season) => (
-          <li key={season.id} className="bg-gray-100 p-4 rounded flex justify-between items-center">
+          <li key={season.id} className="bg-gray-800 p-4 rounded flex justify-between items-center">
             <div>
-              <h3 className="font-bold">{season.name}</h3>
-              <p>Start Date: {new Date(season.startDate).toLocaleDateString()}</p>
-              <p>End Date: {new Date(season.endDate).toLocaleDateString()}</p>
+              <h3 className="font-bold text-gray-200">{season.name}</h3>
+              <p className="text-gray-400">Start Date: {new Date(season.startDate).toLocaleDateString()}</p>
+              <p className="text-gray-400">End Date: {new Date(season.endDate).toLocaleDateString()}</p>
             </div>
             <div>
               <button
                 onClick={() => handleEdit(season)}
-                className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
+                className="bg-yellow-500 text-white px-3 py-1 rounded mr-2 hover:bg-yellow-600"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(season.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded"
+                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
               >
                 Delete
               </button>

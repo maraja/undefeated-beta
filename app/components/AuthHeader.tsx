@@ -39,7 +39,7 @@ export default function AuthHeader() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+    <header className="bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-lg">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold">Undefeated</Link>
         <div className="md:hidden">
@@ -47,22 +47,22 @@ export default function AuthHeader() {
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-        <ul className={`md:flex md:space-x-4 ${isMenuOpen ? 'block' : 'hidden'} md:block absolute md:relative top-16 md:top-0 left-0 md:left-auto right-0 md:right-auto bg-blue-600 md:bg-transparent p-4 md:p-0 rounded-b-lg md:rounded-none shadow-md md:shadow-none`}>
+        <ul className={`md:flex md:space-x-4 ${isMenuOpen ? 'block' : 'hidden'} md:block absolute md:relative top-16 md:top-0 left-0 md:left-auto right-0 md:right-auto bg-gray-800 md:bg-transparent p-4 md:p-0 rounded-b-lg md:rounded-none shadow-md md:shadow-none`}>
           {user ? (
             <>
-              <li><Link href="/dashboard" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Dashboard</Link></li>
-              <li><Link href="/leaderboard" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Leaderboard</Link></li>
-              <li><Link href="/sessions" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Sessions</Link></li>
-              <li><Link href="/profile" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Profile</Link></li>
+              <li><Link href="/dashboard" className="block py-2 md:py-0 hover:text-primary transition-colors">Dashboard</Link></li>
+              <li><Link href="/leaderboard" className="block py-2 md:py-0 hover:text-primary transition-colors">Leaderboard</Link></li>
+              <li><Link href="/sessions" className="block py-2 md:py-0 hover:text-primary transition-colors">Sessions</Link></li>
+              <li><Link href="/profile" className="block py-2 md:py-0 hover:text-primary transition-colors">Profile</Link></li>
               {isAdmin && (
-                <li><Link href="/admin" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Admin</Link></li>
+                <li><Link href="/admin" className="block py-2 md:py-0 hover:text-primary transition-colors">Admin</Link></li>
               )}
-              <li><button onClick={handleLogout} className="block w-full text-left py-2 md:py-0 hover:text-blue-200 transition-colors">Logout</button></li>
+              <li><button onClick={handleLogout} className="block w-full text-left py-2 md:py-0 hover:text-primary transition-colors">Logout</button></li>
             </>
           ) : (
             <>
-              <li><Link href="/login" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Login</Link></li>
-              <li><Link href="/register" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Register</Link></li>
+              <li><Link href="/login" className="block py-2 md:py-0 hover:text-primary transition-colors">Login</Link></li>
+              <li><Link href="/register" className="block py-2 md:py-0 hover:text-primary transition-colors">Register</Link></li>
             </>
           )}
         </ul>

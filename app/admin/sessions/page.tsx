@@ -83,21 +83,21 @@ export default function ManageSessions() {
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-6">Manage Sessions</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Manage Sessions</h1>
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-input text-foreground"
             required
           />
           <input
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-input text-foreground"
             required
           />
           <input
@@ -105,13 +105,13 @@ export default function ManageSessions() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Location"
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-input text-foreground"
             required
           />
           <select
             value={seasonId}
             onChange={(e) => setSeasonId(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded bg-input text-foreground"
             required
           >
             <option value="">Select Season</option>
@@ -122,30 +122,30 @@ export default function ManageSessions() {
             ))}
           </select>
         </div>
-        <button type="submit" className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+        <button type="submit" className="mt-4 btn btn-primary">
           {editingId ? 'Update Session' : 'Create Session'}
         </button>
       </form>
-      <h2 className="text-2xl font-bold mb-4">Existing Sessions</h2>
+      <h2 className="text-2xl font-bold mb-4 text-foreground">Existing Sessions</h2>
       <ul className="space-y-2">
         {sessions.map((session) => (
-          <li key={session.id} className="bg-gray-100 p-4 rounded flex justify-between items-center">
+          <li key={session.id} className="bg-card p-4 rounded flex justify-between items-center">
             <div>
-              <p>Date: {new Date(session.date).toLocaleDateString()}</p>
-              <p>Time: {session.time}</p>
-              <p>Location: {session.location}</p>
-              <p>Season: {seasons.find(s => s.id === session.seasonId)?.name}</p>
+              <p className="text-card-foreground">Date: {new Date(session.date).toLocaleDateString()}</p>
+              <p className="text-card-foreground">Time: {session.time}</p>
+              <p className="text-card-foreground">Location: {session.location}</p>
+              <p className="text-muted-foreground">Season: {seasons.find(s => s.id === session.seasonId)?.name}</p>
             </div>
             <div>
               <button
                 onClick={() => handleEdit(session)}
-                className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
+                className="bg-secondary text-secondary-foreground px-3 py-1 rounded mr-2 hover:bg-secondary/90"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(session.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded"
+                className="bg-destructive text-destructive-foreground px-3 py-1 rounded hover:bg-destructive/90"
               >
                 Delete
               </button>

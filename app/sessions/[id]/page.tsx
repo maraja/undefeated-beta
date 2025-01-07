@@ -52,49 +52,49 @@ export default function SessionDetail({ params }: { params: { id: string } }) {
   };
 
   if (isLoading) {
-    return <div className="text-center mt-10">Loading...</div>;
+    return <div className="text-center mt-10 text-foreground">Loading...</div>;
   }
 
   if (error) {
-    return <div className="text-center mt-10 text-red-500">{error}</div>;
+    return <div className="text-center mt-10 text-destructive">{error}</div>;
   }
 
   if (!session) {
-    return <div className="text-center mt-10">No session data found.</div>;
+    return <div className="text-center mt-10 text-foreground">No session data found.</div>;
   }
 
   const isEnrolled = session.games.some(game => 
     game.teams.some(team => 
-      team.players.some(player => player.id.toString() === user?.id)
+      team.players.some(player => player.id === Number(user?.id))
     )
   );
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-6">Session Details</h1>
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Session Details</h1>
+      <div className="bg-card shadow-md rounded-lg p-6">
         <div className="mb-4">
-          <p className="text-xl font-semibold">Date: {new Date(session.date).toLocaleDateString()}</p>
-          <p className="text-xl">Time: {session.time}</p>
-          <p className="text-xl">Location: {session.location}</p>
-          <p className="text-xl">Number of Games: {session.games.length}</p>
+          <p className="text-xl font-semibold text-card-foreground">Date: {new Date(session.date).toLocaleDateString()}</p>
+          <p className="text-xl text-card-foreground">Time: {session.time}</p>
+          <p className="text-xl text-card-foreground">Location: {session.location}</p>
+          <p className="text-xl text-card-foreground">Number of Games: {session.games.length}</p>
         </div>
-        <h2 className="text-2xl font-semibold mb-4">Games</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Games</h2>
         {session.games.length > 0 ? (
           session.games.map((game, index) => (
             <div key={game.id} className="mb-6">
-              <h3 className="text-xl font-semibold mb-2">Game {index + 1}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-card-foreground">Game {index + 1}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {game.teams.map(team => (
-                  <div key={team.id} className="bg-gray-100 p-4 rounded-md">
-                    <h4 className="text-lg font-semibold mb-2">{team.name}</h4>
+                  <div key={team.id} className="bg-accent p-4 rounded-md">
+                    <h4 className="text-lg font-semibold mb-2 text-accent-foreground">{team.name}</h4>
                     <ul className="space-y-2">
                       {team.players.map(player => (
                         <li key={player.id} className="flex justify-between items-center">
-                          <Link href={`/players/${player.id}`} className="text-blue-600 hover:underline">
+                          <Link href={`/players/${player.id}`} className="text-primary hover:underline">
                             {player.name}
                           </Link>
-                          <span className="text-gray-600">{player.position}</span>
+                          <span className="text-muted-foreground">{player.position}</span>
                         </li>
                       ))}
                     </ul>
@@ -102,25 +102,25 @@ export default function SessionDetail({ params }: { params: { id: string } }) {
                 ))}
               </div>
               {game.winnerId && (
-                <p className="mt-2 font-semibold">
+                <p className="mt-2 font-semibold text-card-foreground">
                   Winner: {game.teams.find(team => team.id === game.winnerId)?.name}
                 </p>
               )}
             </div>
           ))
         ) : (
-          <p>No games have been created for this session yet.</p>
+          <p className="text-muted-foreground">No games have been created for this session yet.</p>
         )}
         {user && !isEnrolled && canEnroll(session.date) && (
           <button
             onClick={handleEnroll}
-            className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            className="mt-6 btn btn-primary"
           >
             Enroll in Session
           </button>
         )}
         {!canEnroll(session.date) && (
-          <p className="mt-6 text-yellow-600">Enrollment for this session is not yet open.</p>
+          <p className="mt-6 text-muted-foreground">Enrollment for this session is not yet open.</p>
         )}
       </div>
     </div>
