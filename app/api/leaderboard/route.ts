@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { Player } from '@/types/api';
 
 export async function GET(request: Request) {
   try {
@@ -13,7 +14,7 @@ export async function GET(request: Request) {
       ${limit ? 'LIMIT $1' : ''}
     `, limit ? [limit] : []);
 
-    const players = result.rows.map(player => ({
+    const players = result.rows.map((player: Player) => ({
       id: player.id,
       name: player.name,
       email: player.email,

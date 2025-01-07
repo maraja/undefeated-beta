@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPlayerByEmail, getPlayerSeasons } from '../../../lib/db';
+import { Player } from '../../dto/types';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -37,20 +38,22 @@ export async function POST(request: Request) {
       { expiresIn: '1d' }
     );
 
+    const serializedPlayer = {
+      id: player.id,
+      name: player.name,
+      email: player.email,
+      isAdmin: player.is_admin,
+      points: player.points,
+      gamesPlayed: player.games_played,
+      winRate: player.win_rate,
+      position: player.position,
+      avatarUrl: player.avatar_url, 
+      seasons: seasons
+    };
+
     const response = NextResponse.json({ 
       message: 'Login successful', 
-      player: { 
-        id: player.id, 
-        name: player.name, 
-        email: player.email, 
-        isAdmin: player.is_admin,
-        points: player.points,
-        gamesPlayed: player.games_played,
-        winRate: player.win_rate,
-        position: player.position,
-        avatarUrl: player.avatar_url,
-        seasons: seasons
-      } 
+      player: serializedPlayer,
     });
     response.cookies.set('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
 

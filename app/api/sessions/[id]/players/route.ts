@@ -54,7 +54,7 @@ export async function GET(
       name: player.name,
       position: player.position,
       avatarUrl: player.avatar_url,
-      teamIds: player.team_ids.filter(id => id !== null)
+      teamIds: player.team_ids.filter((id: number) => id !== null)
     }));
 
     return NextResponse.json({ players });

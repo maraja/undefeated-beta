@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { query } from '@/lib/db';
 import { verifyAuth } from '@/utils/auth';
+import { Session } from '@/types/api';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const token = request.cookies.get('token')?.value;
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 
     const player = result.rows[0];
-    player.recentSessions = player.recentSessions.filter(session => session.id !== null);
+    player.recentSessions = player.recentSessions.filter((session: Session) => session.id !== null);
 
     return NextResponse.json({ player });
   } catch (error) {

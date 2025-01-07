@@ -86,7 +86,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
         await query('DELETE FROM player_teams WHERE team_id = $1', [team.id]);
 
-        for (const playerId of team.players.map(player => player.id)) {
+        for (const playerId of team.players.map((player: any) => player.id)) {
           await query(
             'INSERT INTO player_teams (player_id, team_id) VALUES ($1, $2)',
             [playerId, team.id]
