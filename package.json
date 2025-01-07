@@ -22,6 +22,7 @@
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^17.0.0",
     "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
@@ -31,8 +32,11 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.469.0",
     "next": "14.2.16",
+    "pg": "^8.13.1",
     "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
+    "referral-codes": "^3.0.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -40,6 +44,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

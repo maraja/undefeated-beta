@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
         <AuthProvider>
           <AuthHeader />
           <main className="flex-grow container mx-auto px-4 py-8">

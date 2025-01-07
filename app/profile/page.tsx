@@ -5,18 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Trophy, Calendar, Users, Activity, Edit, Save } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-
-interface Player {
-  id: string;
-  name: string;
-  email: string;
-  points: number;
-  gamesPlayed: number;
-  winRate: number;
-  position: string;
-  bio: string;
-  avatarUrl: string;
-}
+import { Player } from '../dto/types';
 
 export default function Profile() {
   const [player, setPlayer] = useState<Player | null>(null);

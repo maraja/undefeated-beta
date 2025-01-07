@@ -25,7 +25,7 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         login(data.player);
-        router.push('/dashboard');
+        router.push(data.player.isAdmin ? '/admin' : '/dashboard');
       } else {
         const data = await response.json();
         setError(data.error || 'Invalid email or password');

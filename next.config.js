@@ -12,6 +12,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['https://avatar.iran.liara.run'],
+  },
 }
 
 module.exports = nextConfig

@@ -7,6 +7,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -17,7 +18,7 @@ export default function Register() {
     const response = await fetch('/api/players', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, inviteCode }),
     });
 
     if (response.ok) {
@@ -62,6 +63,17 @@ export default function Register() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div>
+          <label htmlFor="inviteCode" className="block mb-1">Invite Code</label>
+          <input
+            type="text"
+            id="inviteCode"
+            value={inviteCode}
+            onChange={(e) => setInviteCode(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded"
           />

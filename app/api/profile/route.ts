@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
       [decoded.id]
     );
 
+    console.log(result);
+
     if (result.rows.length === 0) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }

@@ -9,6 +9,12 @@ async function dropDatabase() {
     await query('DROP TABLE IF EXISTS player_sessions CASCADE');
     await query('DROP TABLE IF EXISTS sessions CASCADE');
     await query('DROP TABLE IF EXISTS players CASCADE');
+    await query('DROP TABLE IF EXISTS games CASCADE');
+    await query('DROP TABLE IF EXISTS invite_codes CASCADE');
+    await query('DROP TABLE IF EXISTS player_seasons CASCADE');
+    await query('DROP TABLE IF EXISTS seasons CASCADE');
+    await query('DROP TABLE IF EXISTS teams CASCADE');
+    await query('DROP TABLE IF EXISTS player_teams CASCADE');
 
     console.log('All tables have been dropped successfully');
   } catch (error) {

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPlayerByEmail } from '@/lib/db';
+import { getPlayerByEmail, getPlayerSeasons } from '../../../lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -25,9 +25,33 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
 
-    const token = jwt.sign({ id: player.id, email: player.email }, JWT_SECRET, { expiresIn: '1d' });
+    const seasons = await getPlayerSeasons(player.id);
 
-    const response = NextResponse.json({ message: 'Login successful', player: { id: player.id, name: player.name, email: player.email } });
+    const token = jwt.sign(
+      { 
+        id: player.id, 
+        email: player.email, 
+        isAdmin: player.is_admin 
+      }, 
+      JWT_SECRET, 
+      { expiresIn: '1d' }
+    );
+
+    const response = NextResponse.json({ 
+      message: 'Login successful', 
+      player: { 
+        id: player.id, 
+        name: player.name, 
+        email: player.email, 
+        isAdmin: player.is_admin,
+        points: player.points,
+        gamesPlayed: player.games_played,
+        winRate: player.win_rate,
+        position: player.position,
+        avatarUrl: player.avatar_url,
+        seasons: seasons
+      } 
+    });
     response.cookies.set('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
 
     return response;

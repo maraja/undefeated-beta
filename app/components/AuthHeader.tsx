@@ -1,15 +1,27 @@
 'use client';
 
-import Link from 'next/link'
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { User, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function AuthHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
   const { user, logout } = useAuth();
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (user) {
+        const response = await fetch('/api/user/isAdmin');
+        const data = await response.json();
+        setIsAdmin(data.isAdmin);
+      }
+    };
+    checkAdminStatus();
+  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -27,7 +39,7 @@ export default function AuthHeader() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
+    <header className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold">Undefeated</Link>
         <div className="md:hidden">
@@ -42,6 +54,9 @@ export default function AuthHeader() {
               <li><Link href="/leaderboard" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Leaderboard</Link></li>
               <li><Link href="/sessions" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Sessions</Link></li>
               <li><Link href="/profile" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Profile</Link></li>
+              {isAdmin && (
+                <li><Link href="/admin" className="block py-2 md:py-0 hover:text-blue-200 transition-colors">Admin</Link></li>
+              )}
               <li><button onClick={handleLogout} className="block w-full text-left py-2 md:py-0 hover:text-blue-200 transition-colors">Logout</button></li>
             </>
           ) : (
@@ -53,6 +68,6 @@ export default function AuthHeader() {
         </ul>
       </nav>
     </header>
-  )
+  );
 }
 
