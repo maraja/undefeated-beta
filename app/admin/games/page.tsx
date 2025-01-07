@@ -111,6 +111,7 @@ export default function ManageGames() {
         { id: Date.now() + 2, name: 'Team 2', players: [] },
       ],
       winnerId: null,
+      sessionId: selectedSession,
     };
 
     setGames([...games, newGame]);
