@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyAuth } from '../utils/auth';
-import { isUserAdmin } from '../lib/db';
+import { AuthToken } from '../app/dto/types';
 
 export async function adminAuth(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
@@ -11,10 +11,9 @@ export async function adminAuth(request: NextRequest) {
   }
 
   try {
-    const decoded = await verifyAuth(token);
-    const isAdmin = await isUserAdmin(decoded.id);
+    const decoded: AuthToken = await verifyAuth(token);
 
-    if (!isAdmin) {
+    if (!decoded.isAdmin) {
       return NextResponse.redirect(new URL('/', request.url));
     }
 

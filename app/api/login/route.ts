@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getPlayerByEmail, getPlayerSeasons } from '../../../lib/db';
-import { Player } from '../../dto/types';
+import { getPlayerByEmail, getPlayerSeasons } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { AuthToken } from '@/app/dto/types';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -33,27 +33,25 @@ export async function POST(request: Request) {
         id: player.id, 
         email: player.email, 
         isAdmin: player.is_admin 
-      }, 
+      } as AuthToken, 
       JWT_SECRET, 
       { expiresIn: '1d' }
     );
 
-    const serializedPlayer = {
-      id: player.id,
-      name: player.name,
-      email: player.email,
-      isAdmin: player.is_admin,
-      points: player.points,
-      gamesPlayed: player.games_played,
-      winRate: player.win_rate,
-      position: player.position,
-      avatarUrl: player.avatar_url, 
-      seasons: seasons
-    };
-
     const response = NextResponse.json({ 
       message: 'Login successful', 
-      player: serializedPlayer,
+      player: { 
+        id: player.id, 
+        name: player.name, 
+        email: player.email, 
+        isAdmin: player.is_admin,
+        points: player.points,
+        gamesPlayed: player.games_played,
+        winRate: player.win_rate,
+        position: player.position,
+        avatarUrl: player.avatar_url,
+        seasons: seasons
+      } 
     });
     response.cookies.set('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
 

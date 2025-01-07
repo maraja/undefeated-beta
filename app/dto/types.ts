@@ -81,4 +81,11 @@ export interface Season {
     players: Player[];
   }
   
+  export interface AuthToken {
+    id: number;
+    email: string;
+    isAdmin: boolean;
+    iat: number;
+    exp: number;
+  }
   
