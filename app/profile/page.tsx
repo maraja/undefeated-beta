@@ -96,7 +96,7 @@ export default function Profile() {
                 <p className="text-blue-200">{player.position}</p>
               </div>
             </div>
-            {user && user.id === player.id && (
+            {user && player.id.toString() === user?.id && (
               <button
                 onClick={isEditing ? handleSave : handleEdit}
                 className="bg-white text-blue-600 px-4 py-2 rounded-full flex items-center"

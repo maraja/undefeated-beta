@@ -65,7 +65,7 @@ export default function SessionDetail({ params }: { params: { id: string } }) {
 
   const isEnrolled = session.games.some(game => 
     game.teams.some(team => 
-      team.players.some(player => player.id === user?.id)
+      team.players.some(player => player.id.toString() === user?.id)
     )
   );
 

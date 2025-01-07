@@ -54,7 +54,7 @@ export default function Leaderboard() {
           </thead>
           <tbody className="divide-y divide-gray-200">
             {players.map((player, index) => (
-              <tr key={player.id} className={player.id === user?.id ? "bg-blue-50" : ""}>
+              <tr key={player.id} className={player.id.toString() === user?.id ? "bg-blue-50" : ""}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <Link href={`/players/${player.id}`} className="flex items-center group">

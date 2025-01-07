@@ -65,7 +65,7 @@ export default function ManageSessions() {
     setDate(session.date);
     setTime(session.time);
     setLocation(session.location);
-    setSeasonId(session.season_id.toString());
+    setSeasonId(session.seasonId.toString());
     setEditingId(session.id);
   };
 
@@ -134,7 +134,7 @@ export default function ManageSessions() {
               <p>Date: {new Date(session.date).toLocaleDateString()}</p>
               <p>Time: {session.time}</p>
               <p>Location: {session.location}</p>
-              <p>Season: {seasons.find(s => s.id === session.season_id)?.name}</p>
+              <p>Season: {seasons.find(s => s.id === session.seasonId)?.name}</p>
             </div>
             <div>
               <button

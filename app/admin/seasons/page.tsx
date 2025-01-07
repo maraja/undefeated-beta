@@ -51,8 +51,8 @@ export default function ManageSeasons() {
 
   const handleEdit = (season: Season) => {
     setName(season.name);
-    setStartDate(season.start_date);
-    setEndDate(season.end_date);
+    setStartDate(season.startDate);
+    setEndDate(season.endDate);
     setEditingId(season.id);
   };
 
@@ -106,8 +106,8 @@ export default function ManageSeasons() {
           <li key={season.id} className="bg-gray-100 p-4 rounded flex justify-between items-center">
             <div>
               <h3 className="font-bold">{season.name}</h3>
-              <p>Start Date: {new Date(season.start_date).toLocaleDateString()}</p>
-              <p>End Date: {new Date(season.end_date).toLocaleDateString()}</p>
+              <p>Start Date: {new Date(season.startDate).toLocaleDateString()}</p>
+              <p>End Date: {new Date(season.endDate).toLocaleDateString()}</p>
             </div>
             <div>
               <button

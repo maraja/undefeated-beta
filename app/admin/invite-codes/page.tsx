@@ -49,8 +49,8 @@ export default function ManageInviteCodes() {
         {inviteCodes.map((inviteCode) => (
           <li key={inviteCode.id} className="bg-gray-100 p-4 rounded flex justify-between items-center">
             <span>{inviteCode.code}</span>
-            <span className={inviteCode.is_used ? 'text-red-500' : 'text-green-500'}>
-              {inviteCode.is_used ? 'Used' : 'Available'}
+            <span className={inviteCode.isUsed ? 'text-red-500' : 'text-green-500'}>
+              {inviteCode.isUsed ? 'Used' : 'Available'}
             </span>
           </li>
         ))}
