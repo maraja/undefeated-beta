@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Trophy, Calendar, Users, Activity, Edit, Save } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { Player } from '../dto/types';
+import { Player, Season } from '../dto/types';
 import { SeasonSwitcher } from '../components/SeasonSwitcher';
 
 export default function Profile() {
@@ -14,7 +14,7 @@ export default function Profile() {
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editedPlayer, setEditedPlayer] = useState<Player | null>(null);
-  const [currentSeason, setCurrentSeason] = useState(null);
+  const [currentSeason, setCurrentSeason] = useState<Season | null>(null);
   const router = useRouter();
   const { user } = useAuth();
 

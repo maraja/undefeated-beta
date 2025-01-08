@@ -170,12 +170,12 @@ export default function ManageGames() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10">
+    <div className="max-w-6xl mx-auto mt-10 bg-gray-900 text-gray-200 p-6 rounded-lg">
       <h1 className="text-3xl font-bold mb-6">Manage Games</h1>
       <select
         value={selectedSession || ''}
         onChange={handleSessionChange}
-        className="mb-4 p-2 border rounded"
+        className="mb-4 p-2 border rounded bg-gray-800 text-gray-200 border-gray-700"
       >
         <option value="">Select Session</option>
         {sessions.map((session) => (
@@ -189,18 +189,18 @@ export default function ManageGames() {
         <>
           <button
             onClick={handleCreateGame}
-            className="mb-4 bg-blue-600 text-white px-4 py-2 rounded"
+            className="mb-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
           >
             Create New Game
           </button>
 
           {games.length > 0 && (
-            <div className="mb-8 bg-gray-100 p-4 rounded">
+            <div className="mb-8 bg-gray-800 p-4 rounded text-gray-200">
               <h2 className="text-xl font-bold mb-2">Session Summary</h2>
               {(() => {
                 const summary = calculateSessionSummary(games);
                 return (
-                  <ul>
+                  <ul className="text-gray-200">
                     <li>Total Games: {summary.totalGames}</li>
                     <li>Total Players: {summary.totalPlayers}</li>
                     <li>Games with Winners: {summary.winningTeams}</li>
@@ -212,7 +212,7 @@ export default function ManageGames() {
 
           <div className="grid grid-cols-1 gap-8">
             {games.map((game, gameIndex) => (
-              <div key={game.id} className="bg-gray-100 p-4 rounded">
+              <div key={game.id} className="bg-gray-800 p-4 rounded">
                 <h2 className="text-xl font-bold mb-4">Game {gameIndex + 1}</h2>
                 <DragDropContext onDragEnd={(result) => onDragEnd(result, gameIndex)}>
                   <div className="grid grid-cols-3 gap-4">
@@ -221,7 +221,7 @@ export default function ManageGames() {
                         <div
                           {...provided.droppableProps}
                           ref={provided.innerRef}
-                          className="bg-white p-4 rounded shadow"
+                          className="bg-gray-700 p-4 rounded shadow"
                         >
                           <h3 className="text-lg font-semibold mb-2">Available Players</h3>
                           {availablePlayers.map((player, index) => (
@@ -231,7 +231,7 @@ export default function ManageGames() {
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className="bg-gray-50 p-2 mb-2 rounded"
+                                  className="bg-gray-600 p-2 mb-2 rounded"
                                 >
                                   {player.name}
                                 </div>
@@ -249,7 +249,7 @@ export default function ManageGames() {
                           <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={`bg-white p-4 rounded shadow ${
+                            className={`bg-gray-700 p-4 rounded shadow ${
                               game.winnerId === team.id ? 'border-4 border-green-500' : ''
                             }`}
                           >
@@ -266,7 +266,7 @@ export default function ManageGames() {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    className="bg-gray-50 p-2 mb-2 rounded"
+                                    className="bg-gray-600 p-2 mb-2 rounded"
                                   >
                                     {player.name}
                                   </div>
@@ -278,8 +278,8 @@ export default function ManageGames() {
                               onClick={() => handleSubmitGame(gameIndex, team.id)}
                               className={`mt-4 px-4 py-2 rounded w-full ${
                                 game.winnerId === team.id
-                                  ? 'bg-green-600 text-white'
-                                  : 'bg-blue-600 text-white hover:bg-blue-700'
+                                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                                  : 'bg-blue-600 hover:bg-blue-700 text-white'
                               }`}
                             >
                               {game.winnerId === team.id ? 'Current Winner' : 'Mark as Winner'}
@@ -292,7 +292,7 @@ export default function ManageGames() {
                 </DragDropContext>
                 <button
                   onClick={() => handleDeleteGame(game.id)}
-                  className="mt-4 bg-red-600 text-white px-4 py-2 rounded"
+                  className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
                 >
                   Delete Game
                 </button>
