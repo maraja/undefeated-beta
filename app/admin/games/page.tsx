@@ -8,10 +8,6 @@ import { Player, Team, Session, Game } from '../../dto/types';
 export default function ManageGames() {
   const isAdmin = useAdminAuth();
 
-  if (!isAdmin) {
-    return null; // or a loading indicator
-  }
-
   const [sessions, setSessions] = useState<Session[]>([]);
   const [selectedSession, setSelectedSession] = useState<number | null>(null);
   const [games, setGames] = useState<Game[]>([]);
@@ -168,6 +164,11 @@ export default function ManageGames() {
       winningTeams,
     };
   };
+
+
+  if (!isAdmin) {
+    return null; // or a loading indicator
+  }
 
   return (
     <div className="max-w-6xl mx-auto mt-10 bg-gray-900 text-gray-200 p-6 rounded-lg">

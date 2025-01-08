@@ -7,10 +7,6 @@ import { Season, Session } from '../../dto/types';
 export default function ManageSessions() {
   const isAdmin = useAdminAuth();
 
-  if (!isAdmin) {
-    return null; // or a loading indicator
-  }
-
   const [sessions, setSessions] = useState<Session[]>([]);
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [date, setDate] = useState('');
@@ -18,11 +14,6 @@ export default function ManageSessions() {
   const [location, setLocation] = useState('');
   const [seasonId, setSeasonId] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetchSessions();
-    fetchSeasons();
-  }, []);
 
   const fetchSessions = async () => {
     const response = await fetch('/api/admin/sessions');
@@ -80,6 +71,15 @@ export default function ManageSessions() {
       }
     }
   };
+
+  useEffect(() => {
+    fetchSessions();
+    fetchSeasons();
+  }, []);
+
+  if (!isAdmin) {
+    return null; // or a loading indicator
+  }
 
   return (
     <div className="max-w-4xl mx-auto mt-10">

@@ -10,7 +10,8 @@ export function useAdminAuth() {
 
   useEffect(() => {
     if (user === null) {
-      router.push('/login');
+      // still loading
+      // router.push('/login');
     } else if (!user.isAdmin) {
       router.push('/dashboard');
     }

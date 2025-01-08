@@ -56,3 +56,16 @@ body {
   @apply bg-secondary text-secondary-foreground hover:bg-secondary/90;
 }
 
+/* Add these styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  @apply bg-gray-700 text-white border-gray-600;
+}
+
+table {
+  @apply rounded-lg overflow-hidden;
+}
+

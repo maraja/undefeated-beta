@@ -42,7 +42,7 @@ export default function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -53,7 +53,7 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -64,7 +64,7 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -75,7 +75,7 @@ export default function Register() {
             value={inviteCode}
             onChange={(e) => setInviteCode(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
